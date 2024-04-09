@@ -1,3 +1,6 @@
+The deployed website on Render.com:
+https://websharer-leowjli.onrender.com
+
 The one extra information I chose to obtain from the webpage is og: sitename/og: site_name
 The website that has this information: https://www.hulu.com/
 
@@ -14,3 +17,5 @@ The preview dropdown card
 The input bar
 - expanded it (padding on all sides) to make it easier for users to input their links and make edits
 - lengthened it to match the preview div length; more uniform
+
+No other students helped me with my code

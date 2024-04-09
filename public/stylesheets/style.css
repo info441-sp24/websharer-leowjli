@@ -1,8 +1,51 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 0 50px 0 50px;
+  font: 14px Inter, "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+nav.navbar {
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width:80%
+}
+
+h1{
+  margin-top: 70px;
+  font-weight: 600;
 }
 
 a {
   color: #00B7FF;
+}
+
+p {
+  margin: 16px 0;
+}
+
+#urlInput {
+  width: 300px;
+  padding: 5px;
+}
+
+button {
+  background-color: #ffdb00;
+  border: 2px solid #422800;
+  border-radius: 2px;
+  box-shadow: #422800 4px 4px 0 0;
+  color: #422800;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+}
+
+button:hover {
+  background-color: #4681f4;
+  color: #fff;
+}
+
+button:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
 }

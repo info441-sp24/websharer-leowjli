@@ -3,7 +3,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-import apiv1Router from './routes/apiv1.js'
+import apiv1Router from './routes/v1/apiv1.js';
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';

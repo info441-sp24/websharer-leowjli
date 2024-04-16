@@ -8,13 +8,13 @@ router.post('/', async (req, res) => {
   console.log(req.body);
 
   try {
-    const newURL = new req.models.Post({
+    const newPost = new req.models.Post({
       url: req.body.url,
       description: req.body.description,
-      created_date: req.body.created_date
+      created_date: new Date()
     })
 
-    await newURL.save();
+    await newPost.save();
     
     res.json({"status": "success"});
   } catch(err) {
@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const posts = await models.Post.find();
+    const posts = await req.models.Post.find();
 
     let postData = await Promise.all(
       posts.map(async (post) => { 
@@ -37,7 +37,9 @@ router.get('/', async (req, res) => {
           return {description, htmlPreview: `Error generating preview: ${err.message}`};
         }
       })
-  );
+    );
+
+    res.json(postData);
   } catch(err) {
     console.log("Error:", err.message);
     res.status(500).json({"status": "error", "error": err})

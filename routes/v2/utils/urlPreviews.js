@@ -4,7 +4,6 @@ import parser from 'node-html-parser';
 
 async function getURLPreview(url){
   // a function that takes a url and returns an html string with a preview of that html
-
   try {
     let previewUrl = url;
     let response = await fetch(previewUrl);

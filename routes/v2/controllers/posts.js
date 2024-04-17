@@ -11,6 +11,7 @@ router.post('/', async (req, res) => {
     const newPost = new req.models.Post({
       url: req.body.url,
       description: req.body.description,
+      website_type: req.body.website_type,
       created_date: new Date()
     })
 
@@ -19,7 +20,7 @@ router.post('/', async (req, res) => {
     res.json({"status": "success"});
   } catch(err) {
     console.log("Error connecting to db", err.message);
-    res.status(500).json({"status": "error", "error": err})
+    res.status(500).json({"status": "error", "error": err.message})
   }
 });
 
@@ -30,11 +31,11 @@ router.get('/', async (req, res) => {
     let postData = await Promise.all(
       posts.map(async (post) => { 
         try {
-          const {url, description} = post;
+          const {url, description, website_type} = post;
           const htmlPreview = await getURLPreview(url);
-          return {description, htmlPreview};
+          return {website_type, description, htmlPreview};
         } catch(err) {
-          return {description, htmlPreview: `Error generating preview: ${err.message}`};
+          return {website_type, description, htmlPreview: `Error generating preview: ${err.message}`};
         }
       })
     );

@@ -2,6 +2,15 @@ import fetch from 'node-fetch';
 
 import parser from 'node-html-parser';
 
+const escapeHTML = str => str.replace(/[&<>'"]/g, 
+  tag => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[tag]));
+
 async function getURLPreview(url){
   // a function that takes a url and returns an html string with a preview of that html
   try {
@@ -23,7 +32,7 @@ async function getURLPreview(url){
 
     metaTags.forEach((ogTag) => {
       let property = ogTag.attributes.property;
-      let content = ogTag.attributes.content;
+      let content = escapeHTML(ogTag.attributes.content);
 
       if (property && property.startsWith("og:")) {
         if (property === "og:url") {

@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/767e6372-0a95-4ba9-9193-9db1ffbbd1c4/resourceGroups/websharer-leoli03_group-b50b/providers/Microsoft.Web/sites/websharer-leoli03",
+  "appService.deploySubpath": "."
+}

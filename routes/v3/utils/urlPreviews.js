@@ -32,9 +32,10 @@ async function getURLPreview(url){
 
     metaTags.forEach((ogTag) => {
       let property = ogTag.attributes.property;
-      let content = escapeHTML(ogTag.attributes.content);
+      let content = ogTag.attributes.content;
 
       if (property && property.startsWith("og:")) {
+        content = escapeHTML(content);
         if (property === "og:url") {
           ogUrl = content || url;
         } else if (property === "og:title") {

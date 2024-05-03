@@ -32,9 +32,11 @@ async function getURLPreview(url){
 
     metaTags.forEach((ogTag) => {
       let property = ogTag.attributes.property;
-      let content = escapeHTML(ogTag.attributes.content);
+      let content = ogTag.attributes.content;
 
       if (property && property.startsWith("og:")) {
+        content = escapeHTML(content);
+
         if (property === "og:url") {
           ogUrl = content || url;
         } else if (property === "og:title") {
@@ -55,8 +57,7 @@ async function getURLPreview(url){
     };
 
     let htmlReturn = `
-      <div style='max-width: 300px; border: solid 1px; padding: 5px; text-align: center; box-shadow: #E7473C 4px 4px 0 0;
-      ;'>
+      <div style='max-width: 300px; border: solid 1px; padding: 5px; text-align: center; box-shadow: #E7473C 4px 4px 0 0;'>
         <a href="${ogUrl}">
         ${site_name ? `<p><strong>${title}</strong>, ${site_name}`: `<p><strong>${title}</strong>`}</p>
           ${image ? `<img src="${image}" alt="image preview" style='max-height: 200px; max-width: 270px;'/>` : ""}

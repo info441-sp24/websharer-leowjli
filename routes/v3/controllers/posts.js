@@ -12,6 +12,7 @@ router.post('/', async (req, res) => {
         url: req.body.url,
         description: req.body.description,
         website_type: req.body.website_type,
+        likes: req.body.likes,
         created_date: new Date()
       })
   
@@ -36,11 +37,11 @@ router.get('/', async (req, res) => {
     let postData = await Promise.all(
       posts.map(async (post) => { 
         try {
-          const {username, url, description, website_type} = post;
+          const {id, username, url, description, website_type, likes} = post;
           const htmlPreview = await getURLPreview(url);
-          return {username, website_type, description, htmlPreview};
+          return {id, username, website_type, description, htmlPreview, likes};
         } catch(err) {
-          return {username, website_type, description, htmlPreview: `Error generating preview: ${err.message}`};
+          return {id, username, website_type, description, htmlPreview: `Error generating preview: ${err.message}`, likes};
         }
       })
     );
@@ -48,6 +49,76 @@ router.get('/', async (req, res) => {
   } catch(err) {
     console.log("Error:", err.message);
     res.status(500).json({"status": "error", "error": err})
+  }
+});
+
+router.post('/like', async (req, res) => {
+  if(req.session.isAuthenticated) {
+    try {
+      let postID = req.body.postID;
+      let username = req.session.account.username;
+      let post = await req.models.Post.findById(postID);
+
+      if(!post.likes.includes(username)) {
+        post.likes.push(username);
+      }
+  
+      await post.save();
+      
+      res.json({"status": "success"});
+    } catch(err) {
+      console.log("Error", err.message);
+      res.status(500).json({"status": "error", "error": err.message})
+    }
+  } else {
+    res.status(401).json({status: "error", error: "not logged in"});
+  }
+});
+
+router.post('/unlike', async (req, res) => {
+  if(req.session.isAuthenticated) {
+    try {
+      let postID = req.body.postID;
+      let username = req.session.account.username;
+
+      let post = await req.models.Post.findById(postID);
+
+      if(post.likes.includes(username)) {
+        post.likes.splice(post.likes.indexOf(username), 1);
+      }
+  
+      await post.save();
+      
+      res.json({"status": "success"});
+    } catch(err) {
+      console.log("Error", err.message);
+      res.status(500).json({"status": "error", "error": err.message})
+    }
+  } else {
+    res.status(401).json({status: "error", error: "not logged in"});
+  }
+});
+
+router.delete('/', async (req, res) => {
+  if(req.session.isAuthenticated) {
+    try {
+      let postID = req.body.postID;
+      let post = await req.models.Post.findById(postID);
+
+      if(post.username !== req.session.account.username) {
+        res.status(401).json({status: "error", error: "you can only delete your own posts"});
+      }
+
+      await req.models.Comment.deleteMany({post: postID});
+      await req.models.Post.deleteOne({_id: postID});
+
+      res.json({status: "success"})
+    } catch(err) {
+      console.log("Error", err.message);
+      res.status(500).json({"status": "error", "error": err.message})
+    }
+  } else {
+    res.status(401).json({status: "error", error: "not logged in"})
   }
 })
 

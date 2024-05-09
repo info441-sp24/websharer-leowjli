@@ -12,6 +12,7 @@ const postSchema = new mongoose.Schema({
   url: String,
   description: String,
   username: String,
+  website_type: String,
   likes: [String],
   created_date: Date
 });

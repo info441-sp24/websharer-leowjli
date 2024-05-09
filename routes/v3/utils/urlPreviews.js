@@ -56,17 +56,14 @@ async function getURLPreview(url){
     };
 
     let htmlReturn = `
-      <div style='max-width: 300px; border: solid 1px; padding: 5px; text-align: center; box-shadow: #E7473C 4px 4px 0 0;
-      ;'>
+      <div style='max-width: 300px; border-bottom: solid 1px; padding: 5px; text-align: center;'>
         <a href="${ogUrl}">
         ${site_name ? `<p><strong>${title}</strong>, ${site_name}`: `<p><strong>${title}</strong>`}</p>
-          ${image ? `<img src="${image}" alt="image preview" style='max-height: 200px; max-width: 270px;'/>` : ""}
+          ${image ? `<img src="${image}" alt="image preview" style='max-height: 200px; max-width: 240px;'/>` : ""}
         </a>
         ${description ? `<p>${description}</p>` : ""}
       </div>
     `;
-
-    console.log(htmlReturn);
 
     return htmlReturn;
   } catch (err) {

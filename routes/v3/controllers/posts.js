@@ -37,11 +37,13 @@ router.get('/', async (req, res) => {
     let postData = await Promise.all(
       posts.map(async (post) => { 
         try {
-          const {id, username, url, description, website_type, likes} = post;
+          const {id, username, url, description, created_date, website_type, likes} = post;
           const htmlPreview = await getURLPreview(url);
-          return {id, username, website_type, description, htmlPreview, likes};
+          
+          console.log(website_type)
+          return {id, username, description, htmlPreview, created_date, website_type, likes};
         } catch(err) {
-          return {id, username, website_type, description, htmlPreview: `Error generating preview: ${err.message}`, likes};
+          return {id, username, description, created_date, htmlPreview: `Error generating preview: ${err.message}`, website_type, likes};
         }
       })
     );

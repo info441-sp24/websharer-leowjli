@@ -10,7 +10,7 @@ const authConfig = {
 		clientId: "fb25cb93-f8c4-41d4-aafc-1039c033aee1",
     authority: "https://login.microsoftonline.com/f6b6dd5b-f02f-441a-99a0-162ac5060bd2",
     clientSecret: "_GJ8Q~RPR-9s39N3bN7bPX.eHX55dFukDB2WdcJ7",
-    redirectUri: "http://localhost:3000/redirect"
+    redirectUri: "https://websharer.leowjli.me/redirect"
 	},
 
 	system: {

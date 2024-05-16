@@ -9,6 +9,8 @@ async function saveUserInfo(){
         method: "POST",
         body: {favorite_song: favorite_song}
     });
+
+    loadUserInfo();
 }
 
 async function loadUserInfo(){
@@ -25,7 +27,6 @@ async function loadUserInfo(){
 
     try {
         const response = await fetch(`/api/${apiVersion}/users?user=${username}`);
-        console.log(response)
         if (!response.ok) {
             throw new Error('Failed to fetch user info');
         }

@@ -3,6 +3,26 @@ async function init(){
     loadUserInfo();
 }
 
+// async function refreshComments(postID){
+//     let commentsElement = document.getElementById(`comments-${postID}`);
+//     commentsElement.innerHTML = "loading..."
+
+//     let commentsJSON = await fetchJSON(`api/${apiVersion}/comments?postID=${postID}`)
+//     commentsElement.innerHTML = getCommentHTML(commentsJSON);
+// }
+
+// async function postComment(postID){
+//     let newComment = document.getElementById(`new-comment-${postID}`).value;
+
+//     let responseJson = await fetchJSON(`api/${apiVersion}/comments`, {
+//         method: "POST",
+//         body: {postID: postID, newComment: newComment}
+//     })
+    
+//     refreshComments(postID);
+// }
+
+
 async function saveUserInfo(){
     //TODO: do an ajax call to save whatever info you want about the user from the user table
     //see postComment() in the index.js file as an example of how to do this
@@ -21,6 +41,17 @@ async function loadUserInfo(){
     }
     
     //TODO: do an ajax call to load whatever info you want about the user from the user table
+    try {
+        const response = await fetch(`/api/${apiVersion}/users?username=${username}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch user info');
+        }
+        const userInfo = await response.json();
+        document.getElementById("user-info-username").innerText = userInfo.username;
+        document.getElementById("user-info-favorite-song").innerText = userInfo.favorite_song;
+    } catch (err) {
+        console.error('Error loading user info:', err);
+    }
 
     loadUserInfoPosts(username)
 }

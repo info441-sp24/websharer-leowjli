@@ -29,4 +29,12 @@ const commentSchema = new mongoose.Schema({
 models.Comment = mongoose.model('Comment', commentSchema);
 console.log("mongoose models created");
 
+const userSchema = new mongoose.Schema({
+  username: String,
+  favorite_song: String
+});
+
+models.User = mongoose.model('User', userSchema);
+console.log("mongoose models created");
+
 export default models;

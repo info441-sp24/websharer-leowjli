@@ -27,7 +27,6 @@ const commentSchema = new mongoose.Schema({
 });
 
 models.Comment = mongoose.model('Comment', commentSchema);
-console.log("mongoose models created");
 
 const userSchema = new mongoose.Schema({
   username: String,
